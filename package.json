@@ -2,7 +2,6 @@
   "name": "pine-ai-app",
   "private": true,
   "type": "module",
-
   "scripts": {
     "install": "echo skipping root install",
     "build": "./build-all.sh",
@@ -12,5 +11,11 @@
     "concurrently": "^8.0.0",
     "ts-node": "^10.0.0",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.0",
+    "node-fetch": "^2.7.0"
   }
 }

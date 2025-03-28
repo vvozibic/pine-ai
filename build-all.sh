@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+npm install
+
 # Билдим клиент
 cd client
 npm install
