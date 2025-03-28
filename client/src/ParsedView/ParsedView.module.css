@@ -1,0 +1,21 @@
+.container {
+  padding: 16px;
+  font-size: 14px;
+  background: #1a1a1a;
+  color: #ddd;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  margin-bottom: 12px;
+  padding: 8px;
+  border-left: 2px solid #444;
+  background: #222;
+  border-radius: 4px;
+}
