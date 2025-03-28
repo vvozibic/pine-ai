@@ -24,6 +24,8 @@ export default function App() {
 
   const { messages, sendMessage, loading } = useChat();
 
+  console.log(messages);
+
   const handleMouseDown = (e: React.MouseEvent, type: string) => {
     const startX = e.clientX;
     const startSidebarWidth = sidebarWidth;

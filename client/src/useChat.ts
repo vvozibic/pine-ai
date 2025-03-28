@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-const SYSTEM_PROMPT = `Ты помощник по Pine Script. Помогай пользователю писать и оптимизировать стратегии для трейдинга.`;
+const SYSTEM_PROMPT = `Привет! Я твой виртуальный помощник по написанию стратегий и индикаторов на PineScript.`;
 
 export function useChat() {
   const [messages, setMessages] = useState([
-    { role: "system", content: SYSTEM_PROMPT },
+    { role: "assistant", content: SYSTEM_PROMPT },
   ]);
   const [loading, setLoading] = useState(false);
 
@@ -45,5 +45,5 @@ export function useChat() {
     }
   };
 
-  return { messages: messages.slice(1), sendMessage, loading };
+  return { messages: messages, sendMessage, loading };
 }
