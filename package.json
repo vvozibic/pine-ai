@@ -1,6 +1,8 @@
 {
   "name": "pine-ai-app",
   "private": true,
+  "type": "module",
+
   "scripts": {
     "install": "echo skipping root install",
     "build": "./build-all.sh",

@@ -2,8 +2,12 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import fetch from "node-fetch";
 import path from "path";
+import { fileURLToPath } from "url";
+
+// Настроим __dirname для ES-модулей
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
@@ -25,6 +29,8 @@ app.use(express.json());
 
 app.post("/api/chat", async (req, res) => {
   try {
+    const { default: fetch } = await import("node-fetch");
+
     const response = await fetch(
       "https://app.scade.pro/api/v1/knowledge-base/retrieve/answer",
       {

@@ -1,29 +1,28 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 // server.ts — простой прокси для OpenAI через Express
-const cors_1 = __importDefault(require("cors"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const express_1 = __importDefault(require("express"));
-const node_fetch_1 = __importDefault(require("node-fetch"));
-const path_1 = __importDefault(require("path"));
-dotenv_1.default.config({ path: path_1.default.resolve(__dirname, "../.env") });
-const app = (0, express_1.default)();
+import cors from "cors";
+import dotenv from "dotenv";
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+// Настроим __dirname для ES-модулей
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
+const app = express();
 const PORT = process.env.PORT || 3001;
 const SCADE_API_KEY = process.env.SCADE_API_KEY;
 if (!SCADE_API_KEY) {
     console.error("❌ Не указан SCADE_API_KEY в .env");
     process.exit(1);
 }
-app.use(express_1.default.static(path_1.default.resolve(__dirname, "../client/dist")));
-app.get("*", (_, res) => res.sendFile(path_1.default.resolve(__dirname, "../client/dist/index.html")));
-app.use((0, cors_1.default)());
-app.use(express_1.default.json());
+app.use(express.static(path.resolve(__dirname, "../client/dist")));
+app.get("*", (_, res) => res.sendFile(path.resolve(__dirname, "../client/dist/index.html")));
+app.use(cors());
+app.use(express.json());
 app.post("/api/chat", async (req, res) => {
     try {
-        const response = await (0, node_fetch_1.default)("https://app.scade.pro/api/v1/knowledge-base/retrieve/answer", {
+        const { default: fetch } = await import("node-fetch");
+        const response = await fetch("https://app.scade.pro/api/v1/knowledge-base/retrieve/answer", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
