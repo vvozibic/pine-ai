@@ -24,7 +24,12 @@ export default function App() {
 
   const { messages, sendMessage, loading } = useChat();
 
-  console.log(messages);
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(editorCode)
+      // .then(() => alert("Код скопирован в буфер обмена!"))
+      .catch((err) => console.error("Ошибка при копировании: ", err));
+  };
 
   const handleMouseDown = (e: React.MouseEvent, type: string) => {
     const startX = e.clientX;
@@ -158,6 +163,22 @@ export default function App() {
             onChange={(value) => setEditorCode(value || "")}
             theme="vs-dark"
           />
+          <div className={styles.buttonContainer}>
+            <button
+              className={styles.button}
+              onClick={() =>
+                window.open(
+                  "https://www.tradingview.com/pine-script-docs/language/execution-model/#execution-model",
+                  "_blank"
+                )
+              }
+            >
+              Документация Pine Script
+            </button>
+            <button className={styles.button} onClick={handleCopy}>
+              Скопировать код
+            </button>
+          </div>
         </div>
       )}
 
