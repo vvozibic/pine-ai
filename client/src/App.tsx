@@ -18,6 +18,8 @@ export default function App() {
   const [editorCode, setEditorCode] = useState(
     '// @version=5\nstrategy("My Strategy", overlay=true)\n\n// Your PineScript code here'
   );
+  const [uiLoading, setUiLoading] = useState(false);
+  const [notification, setNotification] = useState("");
 
   const dragRef = useRef(null);
   const dragRef2 = useRef(null);
@@ -25,10 +27,18 @@ export default function App() {
   const { messages, sendMessage, loading } = useChat();
 
   const handleCopy = () => {
+    setUiLoading(true);
     navigator.clipboard
       .writeText(editorCode)
-      // .then(() => alert("Код скопирован в буфер обмена!"))
-      .catch((err) => console.error("Ошибка при копировании: ", err));
+      .then(() => {
+        setUiLoading(false);
+        setNotification("Код скопирован в буфер обмена!");
+      })
+      .catch((err) => {
+        setUiLoading(false);
+
+        setNotification("Ошибка при копировании.");
+      });
   };
 
   const handleMouseDown = (e: React.MouseEvent, type: string) => {
@@ -107,6 +117,11 @@ export default function App() {
     },
   };
 
+  const handleClear = () => {
+    setEditorCode("");
+    setNotification("Редактор очищен!");
+  };
+
   return (
     <div
       className={chartFullScreen ? styles.fullChartContainer : styles.container}
@@ -155,6 +170,9 @@ export default function App() {
           className={styles.editorWrapper}
           style={{ width: `${editorWidth}px` }}
         >
+          {notification && (
+            <div className={styles.notification}>{notification}</div>
+          )}
           <MonacoEditor
             height="100%"
             defaultLanguage="typescript"
@@ -177,6 +195,9 @@ export default function App() {
             </button>
             <button className={styles.button} onClick={handleCopy}>
               Скопировать код
+            </button>
+            <button className={styles.button} onClick={handleClear}>
+              Очистить редактор
             </button>
           </div>
         </div>

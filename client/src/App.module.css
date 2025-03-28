@@ -169,3 +169,70 @@
   background-color: #e0e0e0;
   cursor: not-allowed;
 }
+
+.loading {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.notification {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  opacity: 0;
+  animation: showNotification 3s forwards;
+}
+
+@keyframes showNotification {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+  }
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #333;
+    padding: 16px;
+    box-sizing: border-box;
+    background-color: #111;
+    min-width: 100vw;
+    height: 40vh;
+  }
+  .editorWrapper {
+    width: 100vw;
+    height: 60vh;
+  }
+  .chartPlaceholder, .chartPreview, .chartFull, .fullChartContainer {
+    display: none;
+  }
+  .buttonContainer {
+    align-items: center;
+    margin: 0;
+    left: 10px;
+    bottom: 10px;
+  }
+  .button {
+    width: min-content;
+    padding: 4px 10px;
+  }
+}
