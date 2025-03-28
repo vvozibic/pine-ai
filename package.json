@@ -7,7 +7,7 @@
     "dev": "concurrently \"npm:start-client\" \"npm:start-server\"",
     "start-client": "cd client && npm run dev",
     "start-server": "cd server && ts-node server.ts",
-    "build": "cd client && npm install && npm run build && cd ../server && npm install && npm run build:server",
+    "build": "./build-all.sh",
     "start": "node dist-server/server.ts",
     "dev:server": "ts-node server/server.ts",
     "build:server": "tsc -p server",
